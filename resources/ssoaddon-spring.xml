@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+       xmlns:twitter="http://www.springframework.org/schema/social/twitter"
+	   xmlns:wechat="http://www.springframework.org/schema/social/wechat"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/social/facebook
+		   http://www.springframework.org/schema/social/spring-social-facebook.xsd
+		   http://www.springframework.org/schema/social/twitter
+		   http://www.springframework.org/schema/social/spring-social-twitter.xsd
+		   http://www.springframework.org/schema/social/wechat
+		   http://www.springframework.org/schema/social/spring-social-wechat.xsd
+		   http://www.springframework.org/schema/social
+		   http://www.springframework.org/schema/social/spring-social.xsd">
+           
+    <context:annotation-config/> 
+
+	<bean id="ssoaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="ssoaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="ssoaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="ssoaddon" />
+	</bean>
+
+    <facebook:config app-id="${facebook.clientId}" app-secret="${facebook.clientSecret}" app-namespace="ssoaddon" />
+    <twitter:config app-id="${twitter.consumerKey}" app-secret="${twitter.consumerSecret}"/>
+	<wechat:config app-id="${wechat.appId}" app-secret="${wechat.appSecret}"/>
+
+	<alias name="ssoUsersConnectionRepository" alias="usersConnectionRepository"/>
+	<bean id="ssoUsersConnectionRepository" class="com.bluecom.social.connect.SsoUsersConnectionRepository" autowire="constructor">
+
+	</bean>
+
+	<bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource" />
+
+	<alias name="defaultConnectionDao" alias="connectionDao"/>
+	<bean id="defaultConnectionDao" class="com.bluecom.social.dao.impl.DefaultSsoConnectionDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+          factory-method="noOpText" />
+
+</beans>

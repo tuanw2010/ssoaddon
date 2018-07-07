@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+ssoaddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+ssoaddon.application-context=ssoaddon-spring.xml
+
+yacceleratorstorefront.additionalWebSpringConfigs.ssoaddon=classpath:/ssoaddon/web/spring/ssoaddon-web-spring.xml
+
+
+
+ssoaddon.javascript.paths.responsive=/responsive/common/js/ssoaddon.js
+ssoaddon.css.paths.responsive=/responsive/common/css/ssoaddon.css
+
+
+facebook.clientId=194377134373279
+facebook.clientSecret=ca75596965b5f495dbe9686b49cbe27e
+facebook.appNamespace=ssoaddon
+
+twitter.consumerKey=SU87nRe9p6yhrHcsiKW7PRzFG
+twitter.consumerSecret=6lNgf61eYxe0wsctOKiKJLaEuIndoGCkwHyURYQa72vbhS57Hk
+
+wechat.appId=wx3c4bc46af2becee7
+wechat.appSecret=dc7290fd34e4a1ad15f65115e518bf14
+wechat.auto.signup=0
